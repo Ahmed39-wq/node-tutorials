@@ -8,8 +8,30 @@ const server  = http.createServer((req, res) => {
     //set header content type
     res.setHeader('Content-Type', 'text/html');
 
+
+    let path = './views/'
+    
+    switch(req.url) {
+        case '/':
+            path += 'index.html';
+            res.statusCode = 200;
+            break;
+        case '/about':
+            path += 'about.html';
+            res.statusCode = 200;
+            break;
+        case '/about-me':
+            res.statusCode = 301;
+            res.setHeader('Location', '/about');
+            break;    
+        default: 
+            path += '404.html';
+            res.statusCode = 404;
+            break;
+    }
+
     //send an htlml file
-    fs.readFile('./servers/views/index.html', (err, data) => {
+    fs.readFile(path, (err, data) => {
         if (err) {
             console.log(err);
             res.end();
@@ -25,3 +47,15 @@ const server  = http.createServer((req, res) => {
 server.listen(3000, 'localhost', () => { 
     console.log('server listening for reqeusts on port 3000');
 })
+
+//Status codes describe the type of response sent to the browser from the server
+// 200 - OK
+// 301 - 'Resource removed';
+// 404 - 'Not found';
+// 500 - 'Internal Server Error';
+
+// 100 range - 'informational responses'
+// 200 range - 'successs codes'
+// 300 range - 'codes for redirects'
+// 400 range - 'user or client error codes'
+// 500 range - 'server error codes'
