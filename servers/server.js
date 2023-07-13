@@ -1,4 +1,5 @@
 const http = require('http');
+const fs = require('fs');
 
 //creating a server to make a request
 const server  = http.createServer((req, res) => {
@@ -7,9 +8,17 @@ const server  = http.createServer((req, res) => {
     //set header content type
     res.setHeader('Content-Type', 'text/html');
 
-    res.write("<head><link rel='stylesheet' href='#'></head>")
-    res.write('<h1>Hello World</h1>')
-    res.end();
+    //send an htlml file
+    fs.readFile('./servers/views/index.html', (err, data) => {
+        if (err) {
+            console.log(err);
+            res.end();
+        } else {
+            // res.write(data);
+            res.end(data);
+        }
+    })
+
 })
 
 //server listening to requests on a port
