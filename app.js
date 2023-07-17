@@ -15,3 +15,15 @@ app.get('/about', (req, res) => {
     res.sendFile('./servers/views/about.html', { root: __dirname})
 
 })
+
+
+//redirects
+app.get('/about-us', (req, res) => {
+    res.redirect('/about')
+})
+
+
+//404 page
+app.use((req, res) => {
+    res.status(400).sendFile('./servers/views/404.html', { root: __dirname})
+})
