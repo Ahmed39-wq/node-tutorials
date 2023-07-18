@@ -8,7 +8,7 @@
 <body>
     
     <nav>
-        <div class="title">
+        <div class="site-title">
             <a href="/">Blog Ninja</a>
             <p>A Net Ninja Site</p>
         </div>
@@ -21,6 +21,18 @@
 
     <div class="blogs content">
         <h1>All Blogs</h1>
+
+        <% if (blogs.length > 0) { %>
+            <% blogs.map(blog => { %>
+
+                <h3 class="title"><%= blog.title %></h3>
+                <p class="snipppet"><%= blog.snippet %></p>
+
+           <% }) %>
+        <% } else { %>
+            <p>There are blogs to display...</p>
+        <% } %> 
+
     </div>
 </body>
 </html>
