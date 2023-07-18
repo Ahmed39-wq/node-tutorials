@@ -1,4 +1,5 @@
 const express = require('express')
+const morgan = require('morgan'); // third party middleware,  http request logger middleware function
 
 const app = express()
 
@@ -9,18 +10,23 @@ app.set('view engine', 'ejs')
 app.listen(3000)
 
 //this leaves the current request hanging when the middleware runs without the next()
-app.use((req, res, next) => {
-    console.log('new request made:');
-    console.log('host:', req.hostname);
-    console.log('path:', req.path);
-    console.log('method:', req.method);
-    next(); // this tells the middleware to move on to the next request
-}) 
+// app.use((req, res, next) => {
+//     console.log('new request made:');
+//     console.log('host:', req.hostname);
+//     console.log('path:', req.path);
+//     console.log('method:', req.method);
+//     next(); // this tells the middleware to move on to the next request
+// }) 
 
-app.use((req, res, next) => {
-    console.log('in the next middleware');
-    next(); 
-})
+// app.use((req, res, next) => {
+//     console.log('in the next middleware');
+//     next(); 
+// })
+
+//middlware and static files like a css file
+app.use(express.static('public')) //making this file public to the browser
+
+app.use(morgan('dev')) //can be used similar to the above function
 
 //Route handlers
 app.get('/', (req, res) => {
