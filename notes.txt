@@ -1,0 +1,7 @@
+MVC stands for Model, View, and Controller.
+It is a way of structuring our code and files
+It keeps code more modular, resuable, and easier to read.
+
+Views are where we create our HTML templates that a user sees in the browser.
+Models are how we describe our data structure and use them to interact with the database.
+Controllers form the link between the views and models. They use models to get data and then pass that data into a view

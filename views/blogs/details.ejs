@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head.ejs') %>
+  <body>
+    <%- include('../partials/nav.ejs') %>
+
+    <p class="back">Go Back</p>
+
+    <div class="details content">
+      <h2><%= blog.title %></h2>
+
+      <div class="content">
+        <p><%= blog.body %></p>
+      </div>
+      <a class="delete" data-doc="<%= blog._id %>">Delete</a>
+    </div>
+
+    <%- include('../partials/footer.ejs') %>
+
+    <script>
+      const deleteBlog = document.querySelector("a.delete");
+      deleteBlog.addEventListener("click", () => {
+        const endpoint = `/blogs/${deleteBlog.dataset.doc}`;
+
+        fetch(endpoint, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => (window.location.href = data.redirect))
+          .catch((err) => console.error(err));
+      });
+
+      const go_back = document.querySelector(".back");
+      go_back.addEventListener("click", (res) => {
+        const url = "/blogs";
+        console.log("hi");
+        fetch(url, { method: "GET" })
+          .then((result) => res.send(result))
+          .catch((err) => console.error(err));
+      });
+    </script>
+  </body>
+</html>
